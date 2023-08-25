@@ -53,11 +53,11 @@ pipeline {
             } 
            } 
         }
-    post { 
-        always { 
+    //post {
+      //  always {
            //slackSend message: 'Pipeline completed - Build deployed successfully '
-           slackSend color: "good", message: "Build Deployed Successfully, Downstream Job Triggered"
-           }
-    }
+        //   slackSend color: "good", message: "Build Deployed Successfully, Downstream Job Triggered"
+         //  }
+    //}
 }
 
