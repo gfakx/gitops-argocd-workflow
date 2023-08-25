@@ -11,20 +11,21 @@ pipeline {
     stages { 
         stage('SCM Checkout') {
             steps{
-           git branch: 'main', url: 'https://github.com/gfakx/Amazon-clone-Dockerized.git'
+           git branch: 'main', url: 'https://github.com/gfakx/gitops-argocd-workflow.git'
             }
         }
         // run sonarqube test
-        stage('Run Sonarqube') {
+         stage('Run SonarCloud Analysis') {
             environment {
-                scannerHome = tool 'ibt-sonarqube';
-            }
-            steps {
-              withSonarQubeEnv(credentialsId: 'ibt-sonar', installationName: 'IBT sonarqube') {
-                sh "${scannerHome}/bin/sonar-scanner"
-              }
+                scannerHome = tool 'SonarCloud';
+        }
+        steps {
+            withSonarQubeEnv(credentialsId: 'sonarcloud', installationName: 'SonarCloud') {
+            sh "${scannerHome}/bin/sonar-scanner"
             }
         }
+    }
+
         stage('Build docker image') {
             steps {  
                 sh 'docker build -t $APP_NAME:$BUILD_NUMBER .'
@@ -47,7 +48,7 @@ pipeline {
         }
         stage('Trigger ManifestUpdate') {
              steps{
-                build job: 'argocd-manifest-amazon', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]     
+                build job: 'gitops-argocd-manifest', parameters: [string(name: 'DOCKERTAG', value: env.BUILD_NUMBER)]
 
             } 
            } 
