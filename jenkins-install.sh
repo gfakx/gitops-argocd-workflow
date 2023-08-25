@@ -23,7 +23,6 @@ sudo apt-get update
 sudo apt-get install jenkins -y
 sudo systemctl enable jenkins
 sudo systemctl start jenkins
-sudo systemctl status jenkins
 
 # Install Docker
 echo "Installing Docker..."
@@ -33,6 +32,9 @@ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubun
 sudo apt-get update
 sudo apt-get install docker-ce docker-ce-cli containerd.io -y
 sudo usermod -aG docker ${USER}
+sudo usermod -aG docker jenkins
+sudo systemctl restart jenkins
+
 docker --version
 
 # Install Kubectl
@@ -49,6 +51,12 @@ curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 # Install Trivy
 echo "Installing Trivy..."
 curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sudo sh
+sudo apt-get install wget apt-transport-https gnupg lsb-release -y
+wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
+sudo apt-get update -y
+sudo apt-get install trivy -y
+
 
 # Install Helm
 echo "Installing Helm..."
