@@ -104,7 +104,7 @@ img 5.b
   - `helm repo add cert-manager https://charts.jetstack.io`
   - `help repo update`
   - `helm install my-cert-manager cert-manager/cert-manager --version 1.12.3`
-- **Configure DNS**: Point the domain to the application's IP address. (jenkins.gfakx.xyz)
+- **Configure DNS**: Point the domain to the application's IP address. 
 - **SSL/TLS Configuration**: Using Cert-Manager, set up SSL/TLS certificates for the domain.
 
 ![Alt text](./images/cert-web.png)
