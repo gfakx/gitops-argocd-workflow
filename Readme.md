@@ -44,18 +44,15 @@ Terraform is utilized to script and automate the infrastructure setup. This ensu
 - **Make file executable** `chmod +x jenkins-install.sh` .
 -  `sh jenkins-install.sh`
 -  `systemctl status jenkins`
-- **Get jenkins password from cli** `cat /var/lib/jenkins/secrets/initialAdminPassword` (img 2.b)
-- **login to jenkins with VM public ip** (img 2.c)
+- **Get jenkins password from cli** `cat /var/lib/jenkins/secrets/initialAdminPassword` (img 2.a)
+- **login to jenkins with VM public ip** (img 2.b)
 - **Configure Necessary Plugins**: Install plugins like Docker,SonarQube, Kubernetes, and more.
 - **Set up Build Jobs**: Create two Jenkins pipeline job gitops-argocd-worfklow & gitops-argocd-manifest.
-- **Push to Dockerhub** : Repo 1 pushes built image to dockerhub and also triggers the build process of Repo 2
 
-![Alt text](./images/dockerhub-push.png)
-img 2.a
 ![Alt text](./images/jenkins-password.png)
-img 2.b
+img 2.a
 ![Alt text](./images/jenkins-login.png)
-img 2.c
+img 2.b
 
 ### 3. Continuous Integration with Jenkins
 
@@ -67,8 +64,10 @@ The CI process is crucial to ensure code quality and build artifacts.
 
 ![Alt text](./images/jenkins-repo1.png)
 img 3.a
-![Alt text](./images/jenkins-repo2.png)
+![Alt text](./images/dockerhub-push.png)
 img 3.b
+![Alt text](./images/jenkins-repo2.png)
+img 3.c
 ### 4. Continuous Deployment with ArgoCD
 
 ArgoCD provides GitOps capabilities, ensuring that the Kubernetes cluster state matches the desired state specified in a Git repository.
